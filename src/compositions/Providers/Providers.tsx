@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { type State } from 'wagmi'
 import { type ChainId } from '@azuro-org/toolkit'
 import { type Address } from 'viem'
@@ -8,6 +8,7 @@ import { IntlProvider } from '@locmod/intl'
 import { SvgProvider, SvgSprite } from 'svg-provider'
 import { AzuroSDKProvider, LiveProvider } from '@azuro-org/sdk'
 import { WagmiProvider } from 'wallet'
+import { initFetchPolyfill } from 'helpers/fetchPolyfill'
 import { DeviceProvider, LocaleProvider, OddsViewProvider } from 'contexts'
 import type { Locale } from 'i18n/config'
 
@@ -25,6 +26,11 @@ type Props = {
 
 const Providers: React.CFC<Props> = (props) => {
   const { children, locale, userAgent, initialState, initialChainId, initialLiveState } = props
+
+  // Initialize fetch polyfill on client side
+  useEffect(() => {
+    initFetchPolyfill()
+  }, [])
 
   return (
     <DeviceProvider userAgent={userAgent}>
