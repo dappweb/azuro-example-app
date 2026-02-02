@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { type State } from 'wagmi'
 import { type ChainId } from '@azuro-org/toolkit'
 import { type Address } from 'viem'
@@ -14,6 +14,11 @@ import type { Locale } from 'i18n/config'
 
 import NewFreeBetsChecker from 'compositions/NewFreeBetsChecker/NewFreeBetsChecker'
 
+// Initialize fetch polyfill immediately when module loads (client-side only)
+if (typeof window !== 'undefined') {
+  initFetchPolyfill()
+}
+
 
 type Props = {
   locale: Locale
@@ -26,11 +31,6 @@ type Props = {
 
 const Providers: React.CFC<Props> = (props) => {
   const { children, locale, userAgent, initialState, initialChainId, initialLiveState } = props
-
-  // Initialize fetch polyfill on client side
-  useEffect(() => {
-    initFetchPolyfill()
-  }, [])
 
   return (
     <DeviceProvider userAgent={userAgent}>
