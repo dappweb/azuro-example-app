@@ -24,6 +24,13 @@ export const initFetchPolyfill = () => {
     return
   }
 
+  // Check if already initialized
+  if ((window as any).__fetchPolyfillInitialized) {
+    console.log('[Fetch Polyfill] Already initialized, skipping')
+
+    return
+  }
+
   // Store the original fetch
   const originalFetch = window.fetch
 
@@ -56,6 +63,9 @@ export const initFetchPolyfill = () => {
 
     // Check if this request should be proxied
     if (shouldProxy(url)) {
+      console.log('[Fetch Polyfill] Intercepted request to:', url)
+      console.log('[Fetch Polyfill] Redirecting to /api/graphql-proxy')
+
       // Redirect to our proxy API
       const proxyUrl = '/api/graphql-proxy'
 
@@ -74,5 +84,9 @@ export const initFetchPolyfill = () => {
     return originalFetch(input, init)
   }
 
-  console.log('[Fetch Polyfill] Initialized - GraphQL requests will be proxied')
+  // Mark as initialized
+  (window as any).__fetchPolyfillInitialized = true
+
+  console.log('[Fetch Polyfill] ✅ Initialized - GraphQL requests will be proxied')
+  console.log('[Fetch Polyfill] Proxied domains:', PROXY_DOMAINS)
 }
