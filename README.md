@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Documentation
+
+- [Business Model Analysis (中文)](/docs/BUSINESS-MODEL.md) - Comprehensive analysis of Azuro's business model, stakeholders, profit distribution, and revenue forecasts
+- [Business Model Analysis (English)](/docs/BUSINESS-MODEL-EN.md) - English version of the business model documentation
+
 ## License
 [This license](/LICENSE.md) applies to all code contained in this repository.
 
